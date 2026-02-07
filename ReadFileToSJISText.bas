@@ -77,7 +77,7 @@ Public Function ReadFileToSJISText(ByVal fn As String) As String
    
    Exit Function
 ReadFileToSJISText_Error:
-   Call MsgBox"エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "ReadFileToSJISText：(" & Err.Number & ":" & Err.Description & ")")
+   Call MsgBox"エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "ReadFileToSJISText:(" & Err.Number & ":" & Err.Description & ")")
    
 End Function
 
@@ -209,6 +209,6 @@ Public Function MojiCode(ByVal fn As String) As String
    Exit Function
    
 MojiCode_Error:
-   Call MsgBox"エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "ReadFileToSJISText：(" & Err.Number & ":" & Err.Description & ")")   
+   Call MsgBox"エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "MojiCode:(" & Err.Number & ":" & Err.Description & ")")   
    
 End Function
