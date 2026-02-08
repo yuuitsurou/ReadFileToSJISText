@@ -37,7 +37,7 @@ Public Function ReadFileToSJISText(ByVal fn As String) As String
    Else
       Set fso = Nothing
    End If
-   Dim dest_fn As String: dest_fn = Left(fn, InstrRev(fn, ".") - 1) & "_SJIS" & "." & Right(fn, Len(fn) - InstrRev(fn "."))
+   Dim dest_fn As String: dest_fn = Left(fn, InstrRev(fn, ".") - 1) & "_SJIS" & "." & Right(fn, Len(fn) - InstrRev(fn, "."))
    
    Dim org_char As String: org_char = MojiCode(fn)
    Dim org As Object: Set org = CreateObject("ADODB.Stream")
@@ -77,7 +77,7 @@ Public Function ReadFileToSJISText(ByVal fn As String) As String
    
    Exit Function
 ReadFileToSJISText_Error:
-   Call MsgBox"エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "ReadFileToSJISText:(" & Err.Number & ":" & Err.Description & ")")
+   Call MsgBox("エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "ReadFileToSJISText:(" & Err.Number & ":" & Err.Description & ")")
    
 End Function
 
@@ -209,6 +209,6 @@ Public Function MojiCode(ByVal fn As String) As String
    Exit Function
    
 MojiCode_Error:
-   Call MsgBox"エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "MojiCode:(" & Err.Number & ":" & Err.Description & ")")   
+   Call MsgBox("エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "MojiCode:(" & Err.Number & ":" & Err.Description & ")")   
    
 End Function
