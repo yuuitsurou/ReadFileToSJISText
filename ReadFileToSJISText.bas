@@ -1,11 +1,23 @@
+Attribute VB_Name = "ReadFileToSJISText"
+'////////////////////////////////////////////////////////////
+'// ReadFileToSJISText.bas
+'// ファイルを読み込んで SJIS の文字列を返す標準モジュール
+'//
+'// 関数
+'// ReadFileToSJISText(fn)
+'// MojiCode(fn)
+'//
+'// 履歴
+'// Ver.01.                         2026/02/09
 Option Explicit
 
 Private Const ENC_UNKNOWN = "Unicode"
 Private Const ENC_UTF8 = "UTF-8"
 Private Const ENC_UTF8N = "UTF-8"
-Private Const ENC_UTF16LE = "Unicode"
+Private Const ENC_UTF16LE = "UTF-16le"
 Private Const ENC_UTF16BE = "UTF-16be"
-Private Const ENC_SHIFT_JIS = "Shift-JIS"
+'Private Const ENC_SHIFT_JIS = "Shift_JIS"
+Private Const ENC_SHIFT_JIS = "CP932"
 
 Private Const adTypeBinary = 1
 Private Const adTypeText = 2
@@ -19,10 +31,10 @@ Private Const adReadLine = -2
 '////////////////////////////////////////////////////////////
 '// ReadFileToSJISText
 '// ファイルを読み込んで SJIS の文字列を返す
-'// 引数�t
+'// 引数:
 '// fn : ファイル名
 '//      ex. C:\test\file.txt
-'// 戻り値�t
+'// 戻り値:
 '// Shift_JIS の文字列(行区切りは CRLF)
 '//
 Public Function ReadFileToSJISText(ByVal fn As String) As String
@@ -76,8 +88,11 @@ Public Function ReadFileToSJISText(ByVal fn As String) As String
    End If
    
    Exit Function
+   
 ReadFileToSJISText_Error:
    Call MsgBox("エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "ReadFileToSJISText:(" & Err.Number & ":" & Err.Description & ")")
+   Err.Clear
+   ReadFileToSJISText = ""
    
 End Function
 
@@ -209,6 +224,8 @@ Public Function MojiCode(ByVal fn As String) As String
    Exit Function
    
 MojiCode_Error:
-   Call MsgBox("エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "MojiCode:(" & Err.Number & ":" & Err.Description & ")")   
+   Call MsgBox("エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "MojiCode:(" & Err.Number & ":" & Err.Description & ")")
+   Err.Clear
+   MojiCode = ""
    
 End Function
