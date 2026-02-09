@@ -54,23 +54,27 @@ Public Function ReadFileToSJISText(ByVal fn As String) As String
    Dim org_char As String: org_char = MojiCode(fn)
    Dim org As Object: Set org = CreateObject("ADODB.Stream")
    Dim dest As Object: Set dest = CreateObject("ADODB.Stream")
-   With dest
-      .Type = adTypeText
-      .Charset = ENC_SHIFT_JIS
-      .Open
-   End With
-   With org
-      .Type = adTypeText
-      .Charset = org_char
-      .Open
-      .LoadFromFile fn
-      .CopyTo dest, -1
-      .Close
-   End With
-   With dest
-      .SaveToFile dest_fn, adSaveCreateOverWrite
-      .Close
-   End With
+   If org_char <> ENC_SHIFT_JIS Then 
+      With dest
+	 .Type = adTypeText
+	 .Charset = ENC_SHIFT_JIS
+	 .Open
+      End With
+      With org
+	 .Type = adTypeText
+	 .Charset = org_char
+	 .Open
+	 .LoadFromFile fn
+	 .CopyTo dest, -1
+	 .Close
+      End With
+      With dest
+	 .SaveToFile dest_fn, adSaveCreateOverWrite
+	 .Close
+      End With
+   Else
+      dest_fn = fn
+   End If 
    With dest
       .Type = adTypeText
       .Charset = ENC_SHIFT_JIS
