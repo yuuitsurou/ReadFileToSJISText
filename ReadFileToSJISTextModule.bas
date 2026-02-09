@@ -1,4 +1,4 @@
-Attribute VB_Name = "ReadFileToSJISText"
+Attribute VB_Name = "ReadFileToSJISTextModule"
 '////////////////////////////////////////////////////////////
 '// ReadFileToSJISText.bas
 '// ファイルを読み込んで SJIS の文字列を返す標準モジュール
