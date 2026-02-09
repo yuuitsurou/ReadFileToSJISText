@@ -16,8 +16,8 @@ Private Const ENC_UTF8 = "UTF-8"
 Private Const ENC_UTF8N = "UTF-8"
 Private Const ENC_UTF16LE = "UTF-16le"
 Private Const ENC_UTF16BE = "UTF-16be"
-'Private Const ENC_SHIFT_JIS = "Shift_JIS"
-Private Const ENC_SHIFT_JIS = "CP932"
+Private Const ENC_SHIFT_JIS = "Shift_JIS"
+'Private Const ENC_SHIFT_JIS = "CP932"
 
 Private Const adTypeBinary = 1
 Private Const adTypeText = 2
