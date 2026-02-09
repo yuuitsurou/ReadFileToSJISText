@@ -8,7 +8,7 @@ Attribute VB_Name = "ReadFileToSJISTextModule"
 '// MojiCode(fn)
 '//
 '// 履歴
-'// Ver.01.                         2026/02/09
+'// Ver.1.0                         2026/02/09
 Option Explicit
 
 Private Const ENC_UNKNOWN = "Unicode"
@@ -94,7 +94,9 @@ Public Function ReadFileToSJISText(ByVal fn As String) As String
    Exit Function
    
 ReadFileToSJISText_Error:
-   Call MsgBox("エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "ReadFileToSJISText:(" & Err.Number & ":" & Err.Description & ")")
+   Call MsgBox("エラーが発生しました。システム管理者に連絡してください。" & vbCrLf _
+	       & "ReadFileToSJISText: " & Err.Number & vbCrLf _
+	       & "( " & Err.Description & " )")
    Err.Clear
    ReadFileToSJISText = ""
    
@@ -228,7 +230,9 @@ Public Function MojiCode(ByVal fn As String) As String
    Exit Function
    
 MojiCode_Error:
-   Call MsgBox("エラーが発生しました。システム管理者に連絡してください。" & vbcrlf & "MojiCode:(" & Err.Number & ":" & Err.Description & ")")
+   Call MsgBox("エラーが発生しました。システム管理者に連絡してください。" & vbCrLf _
+	       & "MojiCode: " & Err.Number & vbCrLf _
+	       & "( " & Err.Description & " )")
    Err.Clear
    MojiCode = ""
    
