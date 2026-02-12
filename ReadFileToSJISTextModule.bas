@@ -8,7 +8,7 @@ Attribute VB_Name = "ReadFileToSJISTextModule"
 '// MojiCode(fn)
 '//
 '// —š—ð
-'// Ver.1.0                         2026/02/09
+'// 2026/02/09 Ver.1.0
 Option Explicit
 
 Private Const ENC_UNKNOWN = "Unicode"
