@@ -114,7 +114,7 @@ Public Function MojiCode(ByVal fn As String) As String
 
    On Error GoTo MojiCode_Error
 
-   MojiCode = ""
+   MojiCode = ENC_UNKNOWN
    Dim ds() As Byte
    Dim strm As Object
    Set strm = CreateObject("ADODB.Stream")
@@ -143,6 +143,7 @@ Public Function MojiCode(ByVal fn As String) As String
       End If
       If MojiCode = ENC_UNKNOWN Then
 	 'Shift_JIS の判定
+	 Dim isSjis As Boolean: isSjis = True 
 	 .Position = 0
 	 Do While .Position < .Size
 	    ds = .Read(1)
@@ -154,24 +155,25 @@ Public Function MojiCode(ByVal fn As String) As String
 		  If ((ds(0) >= &H40 And ds(0) <= &H7E) Or (ds(0) >= &H80 And ds(0) <= &HFC)) Then
 		     '2バイト文字の1バイト目
 		  Else
-		     MojiCode = ENC_SHIFT_JIS
+		     isSjis = False 
 		     Exit Do
 		  End If
 	       Else
-		  MojiCode = ENC_SHIFT_JIS
+		  isSjis = False 
 		  Exit Do
 	       End If
 	    Else
-	       MojiCode = ENC_SHIFT_JIS
+	       isSjis = False 
 	       Exit Do
 	    End If
 	 Loop
-	 If MojiCode = ENC_SHIFT_JIS Then
+	 If isSjis Then
+	    MojiCode = ENC_SHIFT_JIS
 	    .Close
 	    Exit Function
 	 End If
 	 'UTF-8(BOM無) の判定
-	 MojiCode = ENC_UTF8N
+	 Dim isUtf8n As Boolean: isUtf8n = True 
 	 .Position = 0
 	 Do While .Position < .Size
 	    ds = .Read(1)
@@ -183,11 +185,11 @@ Public Function MojiCode(ByVal fn As String) As String
 		  If ds(0) >= &H80 And ds(0) <= &HBF Then
 		     '2バイト文字
 		  Else
-		     MojiCode = ENC_UNKNOWN
+		     isUtf8n = False 
 		     Exit Do
 		  End If
 	       Else
-		  MojiCode = ENC_UNKNOWN
+		  isUtf8n = False 
 		  Exit Do 
 	       End If
 	    ElseIf ds(0) >= &HE0 And ds(0) <= &HEF Then
@@ -196,11 +198,11 @@ Public Function MojiCode(ByVal fn As String) As String
 		  If ds(0) >= &H80 And ds(0) <= &HBF And ds(1) >= &H80 And ds(1) <= &HBF Then
 		     '3バイト文字
 		  Else
-		     MojiCode = ENC_UNKNOWN
+		     isUtf8n = False 
 		     Exit Do
 		  End If
 	       Else
-		  MojiCode = ENC_UNKNOWN
+		  isUtf8n = False 
 		  Exit Do
 	       End If
 	    ElseIf ds(0) >= &HF0 And ds(0) <= &HF4 Then
@@ -211,18 +213,21 @@ Public Function MojiCode(ByVal fn As String) As String
 		     And ds(2) >= &H80 And ds(2) <= &HBF Then
 		     '4バイト文字
 		  Else
-		     MojiCode = ENC_UNKNOWN
+		     isUtf8n = False 
 		     Exit Do
 		  End If
 	       Else
-		  MojiCode = ENC_UNKNOWN
+		  isUtf8n = False 
 		  Exit Do
 	       End If
 	    Else
-	       MojiCode = ENC_UNKNOWN
+	       isUtf8n = False 
 	       Exit Do
 	    End If
 	 Loop
+	 If isUtf8n Then
+	    MojiCode = ENC_UTF8N
+	 End If 
       End If
       .Close
    End With
